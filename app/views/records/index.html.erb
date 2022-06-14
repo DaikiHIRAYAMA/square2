@@ -1,0 +1,29 @@
+<% if @transaction.records.size > 10 %>
+  <%= link_to 'すべての貸し借りを表示', show_all: true %>
+<% end %>
+
+  <% @records.each do |record| %>
+    <% if record.content.present? %>
+      <div>
+        <%= record.user.name %>
+        <%= record.set_time %>
+      </div>
+
+
+
+
+      <div>
+        <% if record.user == current_user %>
+          <%= record.read ? '確認' : '未確認' %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+<%= form_with(model: [@transaction, @record]) do |f| %>
+
+    <%= f.hidden_field :user_id, value: current_user.id %>
+  <div>
+    <%= f.submit "メッセージを送る" %>
+  </div>
+<% end %>

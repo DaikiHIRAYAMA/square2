@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transaction: one
+  user: one
+  rend: one
+  borrow: 
+  read: false
+
+two:
+  transaction: two
+  user: two
+  rend: two
+  borrow: 
+  read: false

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Square2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if logged_in? %>
+      <%= link_to "Profile", user_path(current_user.id) %>
+      <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+      <%= link_to "Conversation Index", transactions_path %>
+      <%= link_to "User Index", users_path %>
+      <% else %>
+      <%= link_to "User Index", root_path %>
+      <% end %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    
+    <%= yield %>
+  </body>
+</html>
