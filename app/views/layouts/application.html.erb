@@ -7,16 +7,26 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
   </head>
 
   <body>
     <% if logged_in? %>
-      <%= link_to "Profile", user_path(current_user.id) %>
-      <%= link_to "Logout", session_path(current_user.id), method: :delete %>
-      <%= link_to "Conversation Index", transactions_path %>
-      <%= link_to "User Index", users_path %>
+      <%= link_to "プロフィール", user_path(current_user.id) %>
+      <%= link_to "ログアウト",destroy_user_session_path, method: :delete   %>
+      <%= link_to "貸し借りしたユーザー", transactions_path %>
+      <%= link_to "貸し借りするユーザーを探す", users_path %>
+      <%= link_to "現在借りているもの", borrows_index_transactions_path %>
+      <%= link_to "現在貸しているもの", rents_index_transactions_path %>
+      <%= link_to "現在貸し借りしているもの", all_index_transactions_path %>
+
+
+
       <% else %>
-      <%= link_to "User Index", root_path %>
+      <%= link_to "ログイン",user_session_path %>
+      <%= link_to "アカウント登録",new_user_registration_path %>
       <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

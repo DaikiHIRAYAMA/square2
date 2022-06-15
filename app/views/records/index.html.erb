@@ -3,15 +3,49 @@
 <% end %>
 
   <% @records.each do |record| %>
-    <% if record.content.present? %>
+    <% if record.item_name.present? %>
       <div>
         <%= record.user.name %>
         <%= record.set_time %>
       </div>
 
+<div class="content">
+      <div>
+        <%= record.item_name %>
+      </div>
+      <div>
+        <%= record.time_limit %>
+      </div>
+      <div>
+        <%= record.start_time %>
+      </div>
+      <div>
+        <%= record.description %>
+      </div>
+  <%= link_to '詳細',  transaction_record_path(record.transaction_id, record) %>
 
+     
+      <div>
+        <% if record.user == current_user %>
+          <% if record.current_situation == "rend" %>
+          <h4>貸してます</h4>
+          <% elsif record.current_situation == "borrow" %>
+          <h4>かりてます</h4>
+          <% else %>
+          <h4>返却完了です</h4>
+          <% end %>
+        <% else %>
+          <% if record.current_situation == "rend" %>
+          <h4>借りてます</h4>
+          <% elsif record.current_situation == "borrow" %>
+          <h4>かりてます</h4>
+          <% else %>
+          <h4>返却完了です</h4>
+          <% end %>
+        <% end %>
+      </div>
 
-
+</div>
       <div>
         <% if record.user == current_user %>
           <%= record.read ? '確認' : '未確認' %>
@@ -20,10 +54,37 @@
     <% end %>
   <% end %>
 
-<%= form_with(model: [@transaction, @record]) do |f| %>
+
+
+    <%= form_with(model: [@transaction, @record]) do |f| %>
+
+    <%= f.text_field :item_name, size: 30 %>
+
+    <%= f.date_select :time_limit , {discard: true} %>
+    
+    <%= f.date_select :start_time, {discard: true} %>
+    
+    <%= f.text_field :description %>
+    
+  <div class="radio-inline">
+    <%= f.radio_button :current_situation, :rend, checked: "checked" %>
+    <%= f.label :貸す %>
+  </div>
+  <div class="radio-inline">
+    <%= f.radio_button :current_situation, :borrow %>
+    <%= f.label :借りる %>
+  </div>
+
+
+
+
+
 
     <%= f.hidden_field :user_id, value: current_user.id %>
   <div>
+
     <%= f.submit "メッセージを送る" %>
+
+
   </div>
 <% end %>

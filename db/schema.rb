@@ -10,20 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_14_095803) do
+ActiveRecord::Schema.define(version: 2022_06_15_090216) do
 
   create_table "records", force: :cascade do |t|
     t.integer "transaction_id", null: false
     t.integer "user_id", null: false
-    t.integer "rend_id"
-    t.integer "borrow_id"
     t.boolean "read", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["borrow_id"], name: "index_records_on_borrow_id"
-    t.index ["rend_id"], name: "index_records_on_rend_id"
+    t.string "item_name"
+    t.datetime "time_limit"
+    t.datetime "start_time"
+    t.string "description"
+    t.integer "current_situation"
     t.index ["transaction_id"], name: "index_records_on_transaction_id"
     t.index ["user_id"], name: "index_records_on_user_id"
+  end
+
+  create_table "rends", force: :cascade do |t|
+    t.string "item_name"
+    t.datetime "time_limit"
+    t.datetime "start_time"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "transactions", force: :cascade do |t|

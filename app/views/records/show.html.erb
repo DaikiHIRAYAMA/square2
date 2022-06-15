@@ -1,0 +1,46 @@
+<h1><%= @record.id %></h1>
+
+<% if @record.user == current_user %>
+
+    <% if @record.current_situation == "rend" %>
+    <h4>貸しているもの:<%= @record.item_name %></h4>
+    <h4>催促する</h4>
+    
+
+    <% elsif @record.current_situation == "borrow" %>
+    <h4>借りているもの:<%= @record.item_name %></h4>
+    <h4>返却する</h4>
+
+
+    <% else %>
+    <h4>貸し借りしていたもの:<%= @record.item_name %></h4>
+    <h4>現在の貸し借りはありません。</h4>
+
+    <% end %>
+
+<% else %>
+
+    <% if @record.current_situation == "rend" %>
+    <h4>借りているもの:<%= @record.item_name %></h4>
+    <h4>返却する</h4>
+
+
+    <% elsif @record.current_situation == "borrow" %>
+    <h4>貸しているもの:<%= @record.item_name %></h4>
+    <h4>催促する</h4>
+
+    <% else %>
+    <h4>貸し借りしていたもの:<%= @record.item_name %></h4>
+    <h4>現在の貸し借りはありません。</h4>
+
+    <% end %>
+<% end %>
+
+    <h4>借用書を表示する</h4>
+
+ <%= link_to '返却する', transaction_record_path(@record.transaction_id, @record), method: :patch %>
+
+<%= link_to :back do %>
+  <button>戻る</button>
+<% end %>
+

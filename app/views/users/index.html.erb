@@ -1,9 +1,9 @@
-<h2>Users</h2>
+<h2>ユーザ一覧</h2>
 <% @users.each do |user| %>
   <% if user.id != current_user.id %>
     <li>
         <%= link_to user.name, user %>
-        <%= link_to 'record', transactions_path(render_id: current_user.id, borrower_id: user.id), method: :post %>
+        <%= link_to '貸し借りをする', transactions_path(render_id: current_user.id, borrower_id: user.id), method: :post %>
     </li>
   <% end %>
 <% end %>
