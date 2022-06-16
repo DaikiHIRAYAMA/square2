@@ -1,5 +1,33 @@
 <h1><%= @user.name %>のページ</h1>
-<p>メールアドレス: <%= @user.email %></p>
 
-<p>edit update を加えて編集ページを作成する。</p>
-<p>もしかしたらregistrationにパスを通した方がはやいかも</p>
+
+
+
+    <% @records.each do |record| %>
+    <tr>
+      <td>
+    <% if record.item_name.present? %>
+      <div>
+        <%= record.set_time %>
+      </div>
+
+<div class="content">
+      <div>
+        <%= record.item_name %>
+      </div>
+      <div>
+        <%= record.time_limit %>
+      </div>
+      <div>
+        <%= record.start_time %>
+      </div>
+      <div>
+        <%= record.description %>
+      </div>
+  <%= link_to '詳細',  transaction_record_path(record.transaction_id, record) %>
+
+
+      </td>
+    </tr>
+    <% end %>
+    <% end %>

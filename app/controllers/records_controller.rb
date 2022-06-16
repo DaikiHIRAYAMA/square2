@@ -37,6 +37,16 @@ class RecordsController < ApplicationController
         end
     end
 
+    def push_mail
+
+        target = @transaction.target_user(current_user)
+
+        PushMailer.send_when_push(target).deliver #宛先を相手にしないといけない
+        #push_mail_transaction_record_path
+        flash[:notice] = "催促メールを送信しました" 
+        redirect_to transaction_records_path(@transaction)
+    end
+
     private
 
 

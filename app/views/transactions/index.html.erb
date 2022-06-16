@@ -6,7 +6,7 @@
     <% @transactions.each do |transaction| %>
     <tr>
       <td>
-        <%= link_to transaction.target_user(current_user).name, transaction_records_path(transaction)%>
+        <%= link_to transaction.target_user(current_user).name, user_path(transaction.target_user(current_user).id)%>
       </td>
     </tr>
     <% end %>

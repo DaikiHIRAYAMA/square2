@@ -11,6 +11,6 @@ class Transaction < ApplicationRecord
         elsif borrower_id == current_user.id
           User.find(render_id)
         end
-      end
+     end
 
 end

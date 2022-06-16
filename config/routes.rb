@@ -18,5 +18,12 @@ Rails.application.routes.draw do
     get 'borrows_index', :on => :collection
   end
 
+  resources :transactions do
+    resources :records do
+      get 'push_mail', :on => :member
+    end
+  end
+
+
   root 'transactions#index'
 end
