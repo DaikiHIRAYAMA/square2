@@ -15,9 +15,7 @@ class UsersController < ApplicationController
     .merge(Record.where(user: @user , current_situation: "rend")
     .or(Record.where(user: @user , current_situation: "borrow"))
     .or(Record.where(user: @user , current_situation: "square")))
-  
     
-
   end
 
 private

@@ -14,13 +14,13 @@
 
   <body>
     <% if logged_in? %>
-      <%= link_to "プロフィール", user_path(current_user.id) %>
+      <%= link_to "プロフィール", mypage_path %>
       <%= link_to "ログアウト",destroy_user_session_path, method: :delete   %>
       <%= link_to "貸し借りしたユーザー", transactions_path %>
       <%= link_to "貸し借りするユーザーを探す", users_path %>
       <%= link_to "現在借りているもの", borrows_index_transactions_path %>
       <%= link_to "現在貸しているもの", rents_index_transactions_path %>
-      <%= link_to "現在貸し借りしているもの", all_index_transactions_path %>
+      <%= link_to "貸し借り一覧", all_index_transactions_path %>
 
 
 
@@ -28,8 +28,6 @@
       <%= link_to "ログイン",user_session_path %>
       <%= link_to "アカウント登録",new_user_registration_path %>
       <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
     
     <%= yield %>

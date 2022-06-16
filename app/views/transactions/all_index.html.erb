@@ -1,31 +1,45 @@
-全てを表示
+
+
+    <h1>貸し借り一覧</h1>
+  
+    <% @transactions.records.each do |transaction| %>
+    
+    <% @transaction = Transaction.find(transaction.id)%>
+    <%  @records = @transaction.records.order(:updated_at) %>
 
     <% @records.each do |record| %>
-    <tr>
-      <td>
-    <% if record.item_name.present? %>
-      <div>
-        <%= record.user.name %>
-        <%= record.set_time %>
-      </div>
 
 <div class="content">
       <div>
-        <%= record.item_name %>
+      相手：<%= @transaction.target_user(current_user).name %>
       </div>
       <div>
-        <%= record.time_limit %>
+      物の名前：<%= record.item_name %>
       </div>
       <div>
-        <%= record.start_time %>
+      期日：<%= record.time_limit.strftime("%Y-%m-%d") %>
       </div>
       <div>
-        <%= record.description %>
+      契約日：<%= record.start_time.strftime("%Y-%m-%d")  %>
       </div>
+      <div>
+      概要：<%= record.description %>
+      </div>
+      <div>
+      State:<%= record.current_situation %>
+      </div>
+
+
+ 
   <%= link_to '詳細',  transaction_record_path(record.transaction_id, record) %>
 
+     <br>
+     <br>
 
-      </td>
-    </tr>
+
+
     <% end %>
+
+     <br>
+
     <% end %>

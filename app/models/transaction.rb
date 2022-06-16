@@ -1,6 +1,6 @@
 class Transaction < ApplicationRecord
-    belongs_to :render, foreign_key: :render_id, class_name: 'User'
-    belongs_to :borrower, foreign_key: :borrower_id, class_name: 'User'
+    belongs_to :render, foreign_key: :render_id, class_name: 'User', dependent: :destroy
+    belongs_to :borrower, foreign_key: :borrower_id, class_name: 'User', dependent: :destroy
     has_many :records, dependent: :destroy
     validates_uniqueness_of :render_id, scope: :borrower_id
 

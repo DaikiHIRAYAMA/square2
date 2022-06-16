@@ -1,0 +1,11 @@
+<h1><%= current_user.name %>のページ</h1>
+
+
+    <% @user = current_user %>
+    <% @records = Record.where(user: current_user)
+    .or(Record.where.not(user: current_user)) %>
+
+<h1>Email:<%= current_user.email %></h1>
+
+<%= link_to '編集する', edit_user_registration_path, method: :get %>
+<%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>

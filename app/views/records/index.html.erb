@@ -31,9 +31,10 @@
      
       <div>
         <% if record.user == current_user %>
+
           <% if record.current_situation == "rend" %>
-          <h4> <%= record.user.name %>→
-          <%= @transaction.target_user(current_user).name %>
+
+          <h4> <%= record.user.name %>→　<%= @transaction.target_user(current_user).name %>
           </h4>
           
           <% elsif record.current_situation == "borrow" %>
@@ -43,13 +44,23 @@
           <% else %>
           <h4>返却完了です</h4>
           <% end %>
+
         <% else %>
           <% if record.current_situation == "rend" %>
-          <h4>借りてます</h4>
-          <% elsif record.current_situation == "borrow" %>
           <h4>かりてます</h4>
+          <h4>
+          <%= @transaction.target_user(current_user).name %>→ <%= record.user.name %>
+          </h4>
+          
+          <% elsif record.current_situation == "borrow" %>
+          <h4>かしてます</h4>
+
+          <h4> <%= record.user.name %>→　<%= @transaction.target_user(current_user).name %>
+          </h4>
+          
           <% else %>
           <h4>返却完了です</h4>
+          
           <% end %>
         <% end %>
       </div>

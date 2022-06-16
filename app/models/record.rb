@@ -1,6 +1,6 @@
 class Record < ApplicationRecord
   belongs_to :conversation, class_name: "Transaction", dependent: :destroy, optional: true
-  belongs_to :user
+  belongs_to :user, dependent: :destroy, optional: true
   has_many :rends
 
 

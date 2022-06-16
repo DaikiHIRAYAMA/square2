@@ -24,6 +24,14 @@ Rails.application.routes.draw do
     end
   end
 
+ # devise_for :users, path_names: { registration: 'show' }
+ devise_scope :user do
+  get 'mypage', to: 'devise/registrations#show', as: :mypage
+ # delete 'logput', to: 'devise/registrations#destroy', as: :destroy
+
+
+ # post 'signup', to: 'devise/registrations#create', as: :customer_registration
+end
 
   root 'transactions#index'
 end
