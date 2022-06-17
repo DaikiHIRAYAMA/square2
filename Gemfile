@@ -62,3 +62,7 @@ gem 'rexml'
 
 #日本語化
 gem 'devise-i18n'
+
+#PDF出力
+gem 'prawn'
+gem 'prawn-table'

@@ -78,12 +78,16 @@
 
     <%= form_with(model: [@transaction, @record]) do |f| %>
 
+    <%= f.label :アイテム名 %>
     <%= f.text_field :item_name, size: 30 %>
 
+    <%= f.label :期日 %>
     <%= f.date_select :time_limit , {discard: true} %>
     
-    <%= f.date_select :start_time, {discard: true} %>
+    <%= f.hidden_field :start_time, value: DateTime.now %>
+
     
+    <%= f.label :詳細 %>
     <%= f.text_field :description %>
     
   <div class="radio-inline">

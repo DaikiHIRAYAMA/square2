@@ -19,12 +19,12 @@ class Record < ApplicationRecord
 
   def date_before_start
     return if start_time.blank?
-    errors.add(:start_time, "は今日以降のものを選択してください") if start_time <= DateTime.now
+    errors.add(:start_time, "は今日以降のものを選択してください") if start_time =! DateTime.now
   end
 
   def date_before_finish
     return if time_limit.blank? || start_time.blank?
-    errors.add(:time_limit, "は開始日以降のものを選択してください") if time_limit <= start_time
+    errors.add(:time_limit, "は開始日以降のものを選択してください") if time_limit < start_time
   end
   
 end

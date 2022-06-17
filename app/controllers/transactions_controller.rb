@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_index , only: [:all_index , :rents_index , :borrows_index]
-
+  #before_action :correct_users
 
     def index
         @transactions = Transaction#.with_user(current_user)
@@ -73,5 +73,15 @@ class TransactionsController < ApplicationController
       .where(render_id: current_user.id)
       .or(Transaction.where(borrower_id: current_user.id))
     end
+
+    def correct_users
+      @transactions = Transaction.where(render_id: current_user.id).or(Transaction.where(borrower_id: current_user.id))
+  unless  current_user.id == @transaction.render_id
+      unless current_user.id == @transaction.render_id
+      redirect_to current_user
+  end
+  end
+  end
+
 
 end

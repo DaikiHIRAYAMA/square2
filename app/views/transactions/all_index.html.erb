@@ -11,12 +11,6 @@
 
 <div class="content">
       <div>
-      相手：<%= @transaction.target_user(current_user).name %>
-      </div>
-      <div>
-      物の名前：<%= record.item_name %>
-      </div>
-      <div>
       期日：<%= record.time_limit.strftime("%Y-%m-%d") %>
       </div>
       <div>
@@ -25,9 +19,73 @@
       <div>
       概要：<%= record.description %>
       </div>
-      <div>
-      State:<%= record.current_situation %>
-      </div>
+
+
+
+<% if record.user == current_user %>
+
+    <% if record.current_situation == "rend" %>
+    <h4>貸しているもの:<%= record.item_name %></h4>
+    <h4>貸している相手：<%= transaction.target_user(current_user).name %></h4>
+
+    <h4>催促する</h4>
+    
+
+    <% elsif record.current_situation == "borrow" %>
+    <h4>借りているもの:<%= record.item_name %></h4>
+    <h4>借りている相手：<%= transaction.target_user(current_user).name %></h4>
+    
+
+    <h4>返却する</h4>
+
+
+    <% else %>
+    <h4>貸し借りしていたもの:<%= record.item_name %></h4>
+    <h4>貸し借りしていた相手：<%= transaction.target_user(current_user).name %></h4>
+    <h4>現在の貸し借りはありません。</h4>
+
+    <% end %>
+
+<% else %>
+
+    <% if record.current_situation == "rend" %>
+    <h4>借りているもの:<%= record.item_name %></h4>
+    <h4>借りている相手：<%= transaction.target_user(current_user).name %></h4>
+
+    <h4>返却する</h4>
+
+
+    <% elsif record.current_situation == "borrow" %>
+    <h4>貸しているもの:<%= record.item_name %></h4>
+    <h4>貸している相手：<%= transaction.target_user(current_user).name %></h4>
+
+    <h4>催促する</h4>
+
+    <% else %>
+    <h4>貸し借りしていたもの:<%= record.item_name %></h4>
+    <h4>貸し借りしていた相手：<%= transaction.target_user(current_user).name %></h4>
+    <h4>現在の貸し借りはありません。</h4>
+
+    <% end %>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  

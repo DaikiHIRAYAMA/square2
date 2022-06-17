@@ -47,6 +47,10 @@
 <% end %>
 
     <h4>借用書を表示する</h4>
+ <%= link_to '借用書を表示する', note_transaction_record_path(@record.transaction_id, @record, format: "pdf"), method: :get %>
+
+
+   
  <%= link_to '催促する', push_mail_transaction_record_path(@record.transaction_id, @record), method: :get %>
  <%= link_to '返却する', transaction_record_path(@record.transaction_id, @record), method: :patch %>
 

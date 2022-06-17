@@ -16,11 +16,13 @@ Rails.application.routes.draw do
     get 'all_index', :on => :collection
     get 'rents_index', :on => :collection
     get 'borrows_index', :on => :collection
+ 
   end
 
   resources :transactions do
     resources :records do
       get 'push_mail', :on => :member
+      get 'note',:on => :member
     end
   end
 
