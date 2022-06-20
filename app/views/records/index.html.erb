@@ -1,114 +1,174 @@
+<!doctype html>
+<html lang="jp">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <%= form_with(model: [@transaction, @record]  ) do |f| %>
+    <% if @record.errors.any?%>
+
+    <h3>入力した内容にエラーが<%= @record.errors.count %>件あります</h3>
+    <ul>
+      <% @record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+
+<div class="form-check text-center">
+  <div class="radio-inline">
+     <h5> 貸す <%= f.radio_button :current_situation, :rend, checked: "checked" %></h5>
+    <h5>借りる <%= f.radio_button :current_situation, :borrow %> </h5>
+  </div>
+</div>
+<div class="row g-3 text-center">
+  <div class="col-12">
+  <h5>アイテム名
+    <%= f.text_field :item_name, size: 30 %>
+  </h5>
+  </div>
+
+
+  <div class="col-12">
+  <h5>一言詳細
+    <%= f.text_field :description %>
+  </h5>
+  </div>
+  <div class="col-12">
+
+  <h5>返済期限
+    <%= f.date_select :time_limit , {discard: true} %>
+  </h5>
+
+
+  </div>
+  </div>
+
+
+    <%= f.hidden_field :start_time, value: DateTime.now %>
+
+
+    <%= f.hidden_field :user_id, value: current_user.id %>
+
+
+<h4 class="text-center">
+<br>
+    <%= f.submit "貸し借りを登録する" , class: "btn btn-outline-primary"%>
+</h4>
+
+
+
+  </div>
+<% end %>
+
+
+
+  </head>
+
+
+  <body>
+
+
 <% if @transaction.records.size > 10 %>
   <%= link_to 'すべての貸し借りを表示', show_all: true %>
 <% end %>
 
 
+
   <% @records.each do |record| %>
-    <% if record.item_name.present? %>
+    <% if record.item_name.present? %>     
       <div>
 
-
-       相手： <%= @transaction.target_user(current_user).name %>
-
-       期日：<%= record.set_time %>
-      </div>
-
-<div class="content">
-      <div>
-        <%= record.item_name %>
-      </div>
-      <div>
-        <%= record.time_limit %>
-      </div>
-      <div>
-        <%= record.start_time %>
-      </div>
-      <div>
-        <%= record.description %>
-      </div>
-  <%= link_to '詳細',  transaction_record_path(record.transaction_id, record) %>
-
-     
-      <div>
+      <div class="card mb-3">
+  <div class="row g-0">
         <% if record.user == current_user %>
 
           <% if record.current_situation == "rend" %>
+       <div class="col-md-4">
+        <img src="/rend.png" alt="rend" width="200" height="200"  vspace="30" hspace="30" >
+      </div>
+      <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-title">貸しているもの:<%= record.item_name %></p>
+        <p class="card-text">貸している相手：<%= @transaction.target_user(current_user).name %></p>
 
-          <h4> <%= record.user.name %>→　<%= @transaction.target_user(current_user).name %>
-          </h4>
-          
           <% elsif record.current_situation == "borrow" %>
-          <h4><%= @transaction.target_user(current_user).name %>→ <%= record.user.name %></h4>
+              <div class="col-md-4">
+      <img src="/borrow.png" alt="borrow" width="200" height="200"  vspace="30" hspace="30" >
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-title">借りているもの:<%= record.item_name %></p>
+        <p class="card-text">借りている相手:<%= @transaction.target_user(current_user).name %></p>
           
           
           <% else %>
-          <h4>返却完了です</h4>
+    <div class="col-md-4">
+      <img src="/square.png" alt="square" width="200" height="200"  vspace="30" hspace="30" >
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+      <h4>貸し借りは完了してます。</h4>
+        <p class="card-title">貸し借りしていたもの:<%= record.item_name %></p>
+        <p class="card-text">貸し借りしていた相手：<%= @transaction.target_user(current_user).name %></p>
+
           <% end %>
 
         <% else %>
           <% if record.current_situation == "rend" %>
-          <h4>かりてます</h4>
-          <h4>
-          <%= @transaction.target_user(current_user).name %>→ <%= record.user.name %>
-          </h4>
+              <div class="col-md-4">
+      <img src="/borrow.png" alt="borrow" width="200" height="200"  vspace="30" hspace="30" >
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-title">借りているもの:<%= record.item_name %></p>
+        <p class="card-text">借りている相手:<%= @transaction.target_user(current_user).name %></p>
           
           <% elsif record.current_situation == "borrow" %>
-          <h4>かしてます</h4>
-
-          <h4> <%= record.user.name %>→　<%= @transaction.target_user(current_user).name %>
-          </h4>
+       <div class="col-md-4">
+        <img src="/rend.png" alt="rend" width="200" height="200"  vspace="30" hspace="30" >
+      </div>
+      <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-title">貸しているもの:<%= record.item_name %></p>
+        <p class="card-text">貸している相手：<%= @transaction.target_user(current_user).name %></p>
           
           <% else %>
-          <h4>返却完了です</h4>
+    <div class="col-md-4">
+      <img src="/square.png" alt="square" width="200" height="200"  vspace="30" hspace="30" >
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+      <h4>貸し借りは完了してます。</h4>
+        <p class="card-title">貸し借りしていたもの:<%= record.item_name %></p>
+        <p class="card-text">貸し借りしていた相手：<%= @transaction.target_user(current_user).name %></p>
           
           <% end %>
         <% end %>
-      </div>
+            <p class="card-text"> 期日：<%= record.time_limit.strftime("%Y-%m-%d") %></p>
+            <p class="card-text"> 契約日：<%= record.start_time.strftime("%Y-%m-%d")  %></p>
+            <p class="card-text"> 概要：<%= record.description %></p>
+            <p class="card-text"> <%= link_to '詳細',  transaction_record_path(record.transaction_id, record) %></p>
+        </div>
+        </div>
 
-</div>
+      </div>
+    </div>
+
       <div>
         <% if record.user == current_user %>
           <%= record.read ? '確認' : '未確認' %>
         <% end %>
       </div>
+
     <% end %>
   <% end %>
 
-
-
-    <%= form_with(model: [@transaction, @record]) do |f| %>
-
-    <%= f.label :アイテム名 %>
-    <%= f.text_field :item_name, size: 30 %>
-
-    <%= f.label :期日 %>
-    <%= f.date_select :time_limit , {discard: true} %>
-    
-    <%= f.hidden_field :start_time, value: DateTime.now %>
-
-    
-    <%= f.label :詳細 %>
-    <%= f.text_field :description %>
-    
-  <div class="radio-inline">
-    <%= f.radio_button :current_situation, :rend, checked: "checked" %>
-    <%= f.label :貸す %>
   </div>
-  <div class="radio-inline">
-    <%= f.radio_button :current_situation, :borrow %>
-    <%= f.label :借りる %>
-  </div>
-
-
-
-
-
-
-    <%= f.hidden_field :user_id, value: current_user.id %>
-  <div>
-
-    <%= f.submit "メッセージを送る" %>
-
-
-  </div>
-<% end %>
+</div>
+</body>
+</html>

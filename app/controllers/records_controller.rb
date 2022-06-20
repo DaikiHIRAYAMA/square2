@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
     before_action :correct_users
 
     def index
-        @records = @transaction.records.order(:created_at)
+        @records = @transaction.records.order(created_at: :"DESC")
         @records.where.not(user_id: current_user.id).update_all(read: true)
         if @records.length > 10
           @records = @records.last(10)
@@ -12,12 +12,17 @@ class RecordsController < ApplicationController
         @record = Record.new
     end
 
+
     def create
         @record = @transaction.records.build(record_params)
-        if @record.save!
+
+        if @record.save
             redirect_to transaction_records_path(@transaction)
+            flash[:notice] = "貸し借りを登録しました" 
         else
-            render 'index'
+            redirect_to transaction_records_path(@transaction)
+            flash[:notice] = "全ての項目を入力してください。また、期日は本日以降を入力してください。" 
+
         end
     end
 
@@ -210,7 +215,7 @@ class RecordsController < ApplicationController
       @transaction = Transaction.find(params[:transaction_id])
     end
 
-    def correct_user #ここに相手も追加する。
+    def correct_user
         @user = User.find(params[:id])
         redirect_to current_user unless current_user?(@user)
     end

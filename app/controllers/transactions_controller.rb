@@ -31,17 +31,10 @@ class TransactionsController < ApplicationController
 
     def rents_index #貸している物を表示する
 
-     # @records = Record#.with_user(current_user)
-     # .where(user: current_user , current_situation: "rend")
-     # .or(Record.where.not(user: current_user) .where(current_situation: "borrow"))
-
     end
 
     def borrows_index #貸している物を表示する
-      @records = Record
-      .where(user: current_user , current_situation: "borrow")
 
-     # .or(Record.where.not(user: current_user) .where(current_situation: "rend"))
     end
 
 

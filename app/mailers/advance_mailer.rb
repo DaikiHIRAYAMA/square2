@@ -7,10 +7,8 @@ class AdvanceMailer < ApplicationMailer
 
         @transaction = Transaction.find(record.transaction_id)
 
-        target1 = User.find(@transaction.render_id)
-        target2 = User.find(@transaction.borrower_id) 
 
-        mail to: "#{target1.email},#{target2.email}"
+        mail to: "#{ User.find(@transaction.render_id).email},#{User.find(@transaction.borrower_id).email }"
         mail subject: "返済期日が迫っております"
  
       end

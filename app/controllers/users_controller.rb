@@ -10,14 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    @records = Record#.with_user(current_user)
-    .merge(Record.where(user: current_user , current_situation: "rend")
-    .or(Record.where(user: current_user , current_situation: "borrow"))
-    .or(Record.where(user: current_user , current_situation: "square")))
-    .merge(Record.where(user: @user , current_situation: "rend")
-    .or(Record.where(user: @user , current_situation: "borrow"))
-    .or(Record.where(user: @user , current_situation: "square")))
-    
+
   end
 
 private
