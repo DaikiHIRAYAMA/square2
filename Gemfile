@@ -67,3 +67,5 @@ gem 'devise-i18n'
 #PDF出力
 gem 'prawn'
 gem 'prawn-table'
+
+gem 'whenever', require: false
